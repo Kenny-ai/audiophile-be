@@ -5,6 +5,7 @@ import {
   getIds,
   getProduct,
   getProductsByCategory,
+  getCategorySlugs,
 } from "../controllers/products";
 import { protect } from "../middleware/auth";
 
@@ -21,6 +22,7 @@ product.get("/all/ids", getIds);
 product.get("/categories", getCategoriesProducts);
 
 product.get("/:category/ids", getCategoryIds);
+product.get("/:category/slugs", getCategorySlugs);
 product.get("/:category", getProductsByCategory);
 
 // product.get("/:category", getAllProducts);

@@ -91,6 +91,33 @@ export const getCategoryIds = async (req: IGetAuthReqInfo, res: Response) => {
   }
 };
 
+export const getCategorySlugs = async (req: IGetAuthReqInfo, res: Response) => {
+  const { category } = req.params;
+
+  const lowerCategory = category.toLowerCase();
+
+  try {
+    const products = await Product.find(
+      { category: lowerCategory },
+      { slug: 1 }
+    );
+    const result = products.map((product: { slug: string }) => {
+      return { slug: product.slug };
+    });
+
+    if (products.length === 0)
+      return res.status(404).json({
+        success: false,
+        data: `Product with category ${lowerCategory} not found`,
+      });
+
+    return res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+};
+
 export const getCategoriesProducts = async (
   req: IGetAuthReqInfo,
   res: Response
