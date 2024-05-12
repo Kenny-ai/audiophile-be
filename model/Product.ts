@@ -2,13 +2,33 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+interface Image {
+  mobile: string;
+  tablet: string;
+  desktop: string;
+}
+interface IProduct {
+  slug: string;
+  name: string;
+  image: Image;
+  category: string;
+  categoryImage: Image;
+  isNew: boolean;
+  price: number;
+  description: string;
+  features: string;
+  includes: { quantity: number; item: string }[];
+  gallery: Image[];
+  others: { slug: string; name: string; image: Image }[];
+}
+
 const imageType = {
   mobile: { type: String, trim: true },
   tablet: { type: String, trim: true },
   desktop: { type: String, trim: true },
 };
 
-export const productSchema = new Schema(
+const productSchema = new Schema<IProduct>(
   {
     slug: { type: String, trim: true },
     name: { type: String, trim: true, required: true },
