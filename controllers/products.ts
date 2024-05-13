@@ -37,18 +37,18 @@ export const getProductsByCategory = async (
 };
 
 export const getProduct = async (req: IGetAuthReqInfo, res: Response) => {
-  if (!req.query._id)
-    return res.status(400).json({ data: "Product id is required" });
+  if (!req.query.slug)
+    return res.status(400).json({ data: "Product slug is required" });
 
-  const { _id } = req.query;
+  const { slug } = req.query;
 
   try {
-    const product = await Product.findOne({ _id });
+    const product = await Product.findOne({ slug });
 
     if (!product)
       return res
         .status(404)
-        .json({ success: false, data: `Product with id ${_id} not found` });
+        .json({ success: false, data: `Product with slug ${slug} not found` });
 
     return res.status(200).json({ success: true, data: product });
   } catch (error) {
