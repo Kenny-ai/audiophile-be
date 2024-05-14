@@ -3,7 +3,7 @@ type Origin = string | undefined;
 
 export const allowedOrigins: Origin[] = [
   "http://localhost:3000",
-  "https://kb-audiophile.vercel.app/",
+  "https://kb-audiophile.vercel.app",
 ];
 
 export const corsOptions = {
